@@ -8,7 +8,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      MONGODB_URI: mongodb://mongo:27017/travel-website
+      MONGODB_URI: mongodb+srv://karim:Massaoud1964@travel-website.nux5ksx.mongodb.net/?retryWrites=true&w=majority&appName=travel-website
       JWT_SECRET: your_super_secret_jwt_key_change_this_in_production
       PORT: 3000
     depends_on:

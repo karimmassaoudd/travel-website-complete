@@ -32,7 +32,7 @@ app.get('*', (req, res) => {
 });
 
 // MongoDB connection
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://karim:123-456@travel-website.drmnhu7.mongodb.net/?retryWrites=true&w=majority&appName=travel-website';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://karim:Massaoud1964@travel-website.nux5ksx.mongodb.net/?retryWrites=true&w=majority&appName=travel-website';
 mongoose.connect(MONGODB_URI)
   .then(() => console.log('MongoDB connected successfully'))
   .catch(err => console.error('MongoDB connection error:', err));
