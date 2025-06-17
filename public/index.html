@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelWorld - Discover Your Dream Destination</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/enhanced-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Travel<span>World</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="destinations.html">Destinations</a></li>
+                    <li><a href="booking.html">Book Now</a></li>
+                </ul>
+            </nav>
+            <div class="header-right">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search destinations...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <div class="user-actions">
+                    <!-- Will be populated by auth.js -->
+                </div>
+            </div>
+            <div class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero" style="background-image: url('images/travel_hero.jpg');">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Discover Your Dream Destination</h1>
+                <p>Explore the world's most beautiful places with our exclusive travel packages and personalized itineraries.</p>
+                <div class="hero-buttons">
+                    <a href="destinations.html" class="btn-primary">Explore Destinations</a>
+                    <a href="booking.html" class="btn-secondary">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="featured-destinations">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured Destinations</h2>
+                <p>Discover our handpicked selection of the most breathtaking destinations around the world</p>
+            </div>
+            
+            <div class="destinations-grid">
+                <div class="destination-card">
+                    <div class="destination-image">
+                        <img src="images/bali.jpg" alt="Bali, Indonesia">
+                        <div class="destination-badge">Popular</div>
+                    </div>
+                    <div class="destination-content">
+                        <div class="destination-meta">
+                            <span>Asia</span>
+                            <div class="destination-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span>4.8</span>
+                            </div>
+                        </div>
+                        <h3>Bali, Indonesia</h3>
+                        <p>Experience the perfect blend of beautiful beaches, vibrant culture, and spiritual retreats.</p>
+                        <div class="destination-details">
+                            <div class="detail-item">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>Best time: Apr-Oct</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-hiking"></i>
+                                <span>Beach, Culture, Spiritual</span>
+                            </div>
+                        </div>
+                        <div class="destination-footer">
+                            <div class="price">From $899</div>
+                            <a href="booking.html" class="btn-book">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="destination-card">
+                    <div class="destination-image">
+                        <img src="images/paris.jpg" alt="Paris, France">
+                    </div>
+                    <div class="destination-content">
+                        <div class="destination-meta">
+                            <span>Europe</span>
+                            <div class="destination-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span>4.7</span>
+                            </div>
+                        </div>
+                        <h3>Paris, France</h3>
+                        <p>Discover the city of love with its iconic landmarks, world-class cuisine, and artistic heritage.</p>
+                        <div class="destination-details">
+                            <div class="detail-item">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>Best time: Apr-Jun, Sep-Oct</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-hiking"></i>
+                                <span>Culture, Food, Art</span>
+                            </div>
+                        </div>
+                        <div class="destination-footer">
+                            <div class="price">From $1,099</div>
+                            <a href="booking.html" class="btn-book">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="destination-card">
+                    <div class="destination-image">
+                        <img src="images/santorini.jpg" alt="Santorini, Greece">
+                        <div class="destination-badge">Trending</div>
+                    </div>
+                    <div class="destination-content">
+                        <div class="destination-meta">
+                            <span>Europe</span>
+                            <div class="destination-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>4.9</span>
+                            </div>
+                        </div>
+                        <h3>Santorini, Greece</h3>
+                        <p>Enjoy breathtaking sunsets, white-washed buildings, and crystal-clear waters on this magical island.</p>
+                        <div class="destination-details">
+                            <div class="detail-item">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>Best time: May-Oct</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-hiking"></i>
+                                <span>Beach, Romance, Photography</span>
+                            </div>
+                        </div>
+                        <div class="destination-footer">
+                            <div class="price">From $1,299</div>
+                            <a href="booking.html" class="btn-book">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="view-all-container">
+                <a href="destinations.html" class="btn-view-all">View All Destinations</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="trip-explanation">
+        <div class="container">
+            <div class="trip-explanation-content">
+                <div class="trip-explanation-image">
+                    <img src="images/beach_resort.jpg" alt="Luxury Beach Resort">
+                </div>
+                <div class="trip-explanation-text">
+                    <h2>Luxury Beach Getaways</h2>
+                    <p>Escape to pristine beaches and luxurious resorts where crystal-clear waters meet powdery white sand. Our beach vacation packages offer the perfect blend of relaxation and adventure, allowing you to unwind in paradise while enjoying world-class amenities and service.</p>
+                    <p>Whether you're looking for a romantic honeymoon destination, a family-friendly resort with activities for all ages, or a secluded retreat to disconnect from the world, our travel experts will create the perfect beach getaway tailored to your preferences.</p>
+                    <div class="trip-explanation-features">
+                        <div class="trip-feature">
+                            <i class="fas fa-umbrella-beach"></i>
+                            <span>Private beach access</span>
+                        </div>
+                        <div class="trip-feature">
+                            <i class="fas fa-swimming-pool"></i>
+                            <span>Infinity pools</span>
+                        </div>
+                        <div class="trip-feature">
+                            <i class="fas fa-spa"></i>
+                            <span>Spa treatments</span>
+                        </div>
+                        <div class="trip-feature">
+                            <i class="fas fa-cocktail"></i>
+                            <span>All-inclusive options</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="trip-explanation" style="background-color: white;">
+        <div class="container">
+            <div class="trip-explanation-content">
+                <div class="trip-explanation-text">
+                    <h2>Mountain Adventures</h2>
+                    <p>Embark on an unforgettable journey through majestic mountain landscapes, where breathtaking vistas and exhilarating activities await. Our mountain adventure packages combine the thrill of outdoor exploration with comfortable accommodations nestled in scenic alpine settings.</p>
+                    <p>From hiking through lush forests and conquering challenging peaks to enjoying cozy evenings by the fireplace, our mountain getaways offer a perfect balance of adventure and relaxation. Each itinerary is carefully crafted to showcase the natural beauty and unique character of the destination.</p>
+                    <div class="trip-explanation-features">
+                        <div class="trip-feature">
+                            <i class="fas fa-mountain"></i>
+                            <span>Guided hiking tours</span>
+                        </div>
+                        <div class="trip-feature">
+                            <i class="fas fa-skiing"></i>
+                            <span>Winter sports</span>
+                        </div>
+                        <div class="trip-feature">
+                            <i class="fas fa-campground"></i>
+                            <span>Luxury mountain lodges</span>
+                        </div>
+                        <div class="trip-feature">
+                            <i class="fas fa-camera"></i>
+                            <span>Photography spots</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="trip-explanation-image">
+                    <img src="images/mountain_view.jpg" alt="Mountain Adventure">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="trip-explanation">
+        <div class="container">
+            <div class="trip-explanation-content">
+                <div class="trip-explanation-image">
+                    <img src="images/cruise_ship.jpg" alt="Luxury Cruise">
+                </div>
+                <div class="trip-explanation-text">
+                    <h2>Luxury Cruise Experiences</h2>
+                    <p>Set sail on an extraordinary voyage aboard a luxury cruise ship, where every detail is designed to provide an unforgettable travel experience. Our cruise packages offer the perfect combination of elegant accommodations, world-class dining, and exciting shore excursions to multiple destinations in a single journey.</p>
+                    <p>From intimate river cruises through historic European waterways to grand ocean voyages across the Caribbean or Mediterranean, we offer a wide range of options to suit every preference. Unpack once and wake up to a new destination each day, all while enjoying the comfort and convenience of your floating luxury hotel.</p>
+                    <div class="trip-explanation-features">
+                        <div class="trip-feature">
+                            <i class="fas fa-ship"></i>
+                            <span>Premium cruise lines</span>
+                        </div>
+                        <div class="trip-feature">
+                            <i class="fas fa-utensils"></i>
+                            <span>Gourmet dining</span>
+                        </div>
+                        <div class="trip-feature">
+                            <i class="fas fa-glass-cheers"></i>
+                            <span>Entertainment options</span>
+                        </div>
+                        <div class="trip-feature">
+                            <i class="fas fa-map-marked-alt"></i>
+                            <span>Multiple destinations</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="special-offers">
+        <div class="container">
+            <div class="section-header">
+                <h2>Special Offers</h2>
+                <p>Take advantage of our limited-time deals and save on your next adventure</p>
+            </div>
+            
+            <div class="offers-grid">
+                <div class="offer-card">
+                    <div class="offer-badge">Save 25%</div>
+                    <div class="offer-content">
+                        <h3>Summer Escape to Bali</h3>
+                        <p>7 nights at a luxury beachfront resort with daily breakfast, airport transfers, and a complimentary spa treatment.</p>
+                        <div class="offer-price">
+                            <div class="original-price">$1,199</div>
+                            <div class="discounted-price">$899</div>
+                        </div>
+                        <div class="offer-details">
+                            <div class="detail-item">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>Valid: Jun 1 - Aug 31, 2025</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-tag"></i>
+                                <span>Promo Code: SUMMER25</span>
+                            </div>
+                        </div>
+                        <a href="booking.html" class="btn-book-offer">Book Now</a>
+                    </div>
+                </div>
+                
+                <div class="offer-card">
+                    <div class="offer-badge">Save 20%</div>
+                    <div class="offer-content">
+                        <h3>Romantic Paris Getaway</h3>
+                        <p>5 nights at a boutique hotel near the Eiffel Tower with Seine River dinner cruise and skip-the-line museum passes.</p>
+                        <div class="offer-price">
+                            <div class="original-price">$1,349</div>
+                            <div class="discounted-price">$1,079</div>
+                        </div>
+                        <div class="offer-details">
+                            <div class="detail-item">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>Valid: Sep 1 - Nov 30, 2025</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-tag"></i>
+                                <span>Promo Code: PARIS20</span>
+                            </div>
+                        </div>
+                        <a href="booking.html" class="btn-book-offer">Book Now</a>
+                    </div>
+                </div>
+                
+                <div class="offer-card">
+                    <div class="offer-badge">Save 30%</div>
+                    <div class="offer-content">
+                        <h3>Greek Island Hopping</h3>
+                        <p>10-day adventure through Santorini, Mykonos, and Crete with accommodations, ferry transfers, and guided tours.</p>
+                        <div class="offer-price">
+                            <div class="original-price">$1,899</div>
+                            <div class="discounted-price">$1,329</div>
+                        </div>
+                        <div class="offer-details">
+                            <div class="detail-item">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>Valid: May 1 - Oct 15, 2025</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-tag"></i>
+                                <span>Promo Code: GREEK30</span>
+                            </div>
+                        </div>
+                        <a href="booking.html" class="btn-book-offer">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>What Our Travelers Say</h2>
+                <p>Read about the experiences of travelers who have explored the world with us</p>
+            </div>
+            
+            <div class="testimonial-slider-container">
+                <div class="testimonial-slider">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>"Our trip to Bali was absolutely perfect from start to finish. The accommodations were luxurious, the guided tours were informative and fun, and the entire experience exceeded our expectations. We can't wait to book our next adventure with TravelWorld!"</p>
+                            <div class="testimonial-author">
+                                <div class="testimonial-author-image">
+                                    <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Sarah Johnson">
+                                </div>
+                                <div class="testimonial-author-info">
+                                    <h4>Sarah Johnson</h4>
+                                    <p>Bali, Indonesia</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>"As a solo traveler, I was looking for a company that would help me feel safe while still having an authentic experience. TravelWorld delivered exactly that with my trip to Japan. The itinerary was perfectly balanced, and the local guides were knowledgeable and friendly."</p>
+                            <div class="testimonial-author">
+                                <div class="testimonial-author-image">
+                                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen">
+                                </div>
+                                <div class="testimonial-author-info">
+                                    <h4>Michael Chen</h4>
+                                    <p>Tokyo, Japan</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>"Our family vacation to Greece was the trip of a lifetime! The island-hopping package was perfectly organized, with seamless transfers and family-friendly accommodations. The kids loved the beach activities, and we appreciated the cultural experiences. Highly recommended!"</p>
+                            <div class="testimonial-author">
+                                <div class="testimonial-author-image">
+                                    <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Emily Rodriguez">
+                                </div>
+                                <div class="testimonial-author-info">
+                                    <h4>Emily Rodriguez</h4>
+                                    <p>Santorini, Greece</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-controls">
+                    <button class="testimonial-prev"><i class="fas fa-chevron-left"></i></button>
+                    <button class="testimonial-next"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Start Your Adventure?</h2>
+                <p>Join thousands of satisfied travelers who have discovered their dream destinations with TravelWorld. Our expert team is ready to help you plan the perfect trip.</p>
+                <div class="cta-buttons">
+                    <a href="booking.html" class="btn-cta-primary">Book Your Trip</a>
+                    <a href="destinations.html" class="btn-cta-secondary">Explore Destinations</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <div class="newsletter-text">
+                    <h2>Subscribe to Our Newsletter</h2>
+                    <p>Stay updated with our latest travel deals, new destinations, and inspiration for your next adventure.</p>
+                </div>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email address" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <h2>Travel<span>World</span></h2>
+                    </div>
+                    <p>Discover the world with us. We provide unforgettable travel experiences with personalized service and exceptional value.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="destinations.html">Destinations</a></li>
+                        <li><a href="booking.html">Book Now</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Destinations</h3>
+                    <ul>
+                        <li><a href="#">Europe</a></li>
+                        <li><a href="#">Asia</a></li>
+                        <li><a href="#">North America</a></li>
+                        <li><a href="#">South America</a></li>
+                        <li><a href="#">Africa</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Travel Street, City, Country</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@travelworld.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 TravelWorld. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destinations - TravelWorld</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/enhanced-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Destinations Page Specific Styles */
+        .destinations-hero {
+            height: 500px;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('images/travel_hero.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .destinations-hero-content {
+            max-width: 800px;
+            padding: 40px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 8px;
+        }
+        
+        .destinations-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .destinations-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        
+        .destination-filters {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-top: -50px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .filter-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        
+        .filter-group select,
+        .filter-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+        
+        .btn-filter {
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-apply {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+        }
+        
+        .btn-apply:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .btn-reset {
+            background-color: transparent;
+            color: var(--dark-color);
+            border: 1px solid #ddd;
+        }
+        
+        .btn-reset:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .destination-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            background-color: white;
+        }
+        
+        .destination-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .destination-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .destination-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .destination-card:hover .destination-image img {
+            transform: scale(1.1);
+        }
+        
+        .destination-category {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .destination-content {
+            padding: 25px;
+        }
+        
+        .destination-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .destination-title h3 {
+            font-size: 1.5rem;
+            margin: 0 0 5px;
+            color: var(--dark-color);
+        }
+        
+        .destination-location {
+            display: flex;
+            align-items: center;
+            color: #777;
+            font-size: 0.95rem;
+        }
+        
+        .destination-location i {
+            margin-right: 5px;
+            color: var(--primary-color);
+        }
+        
+        .destination-price {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        .destination-description {
+            margin-bottom: 20px;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .destination-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .destination-feature {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: #555;
+        }
+        
+        .destination-feature i {
+            color: var(--primary-color);
+        }
+        
+        .destination-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .destination-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .destination-rating i {
+            color: #ffc107;
+        }
+        
+        .destination-rating span {
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        
+        .btn-view-details {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-view-details:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .map-section {
+            margin-top: 60px;
+            padding: 40px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+        
+        .map-container {
+            height: 500px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .featured-destinations {
+            margin-top: 60px;
+        }
+        
+        .featured-destinations .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .featured-slider {
+            position: relative;
+        }
+        
+        .featured-controls {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            z-index: 1;
+        }
+        
+        .featured-prev,
+        .featured-next {
+            background-color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .featured-prev:hover,
+        .featured-next:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .featured-prev {
+            margin-left: -20px;
+        }
+        
+        .featured-next {
+            margin-right: -20px;
+        }
+        
+        /* Navigation style matching the uploaded image */
+        .page-navigation {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+        }
+        
+        .page-navigation a {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            text-decoration: none;
+            color: #333;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .page-navigation a:hover {
+            color: var(--primary-color);
+        }
+        
+        .page-navigation a.active {
+            color: var(--primary-color);
+        }
+        
+        .page-navigation a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .destinations-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .destinations-hero {
+                height: 400px;
+            }
+            
+            .destinations-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .filter-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .filter-group {
+                min-width: 100%;
+            }
+            
+            .destinations-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .map-container {
+                height: 350px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .destinations-hero-content {
+                padding: 20px;
+            }
+            
+            .destinations-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .destinations-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .destination-filters {
+                padding: 15px;
+            }
+            
+            .filter-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .btn-filter {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Travel<span>World</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="destinations.html" class="active">Destinations</a></li>
+                    <li><a href="booking.html">Book Now</a></li>
+                </ul>
+            </nav>
+            <div class="header-right">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search destinations...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <div class="user-actions">
+                    <!-- Will be populated by auth.js -->
+                </div>
+            </div>
+            <div class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <section class="destinations-hero">
+        <div class="destinations-hero-content">
+            <h1>Explore Amazing Destinations</h1>
+            <p>Discover breathtaking locations around the world and create unforgettable memories</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="destination-filters">
+            <form id="filter-form">
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label for="destination-region">Region</label>
+                        <select id="destination-region">
+                            <option value="">All Regions</option>
+                            <option value="europe">Europe</option>
+                            <option value="asia">Asia</option>
+                            <option value="north-america">North America</option>
+                            <option value="south-america">South America</option>
+                            <option value="africa">Africa</option>
+                            <option value="oceania">Oceania</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="destination-type">Type</label>
+                        <select id="destination-type">
+                            <option value="">All Types</option>
+                            <option value="beach">Beach</option>
+                            <option value="mountain">Mountain</option>
+                            <option value="city">City</option>
+                            <option value="countryside">Countryside</option>
+                            <option value="island">Island</option>
+                            <option value="historical">Historical</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="destination-budget">Budget</label>
+                        <select id="destination-budget">
+                            <option value="">Any Budget</option>
+                            <option value="budget">Budget (Under $500)</option>
+                            <option value="moderate">Moderate ($500 - $1000)</option>
+                            <option value="luxury">Luxury ($1000+)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label for="destination-duration">Duration</label>
+                        <select id="destination-duration">
+                            <option value="">Any Duration</option>
+                            <option value="weekend">Weekend Getaway (1-3 days)</option>
+                            <option value="short">Short Trip (4-7 days)</option>
+                            <option value="long">Long Vacation (8+ days)</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="destination-rating">Rating</label>
+                        <select id="destination-rating">
+                            <option value="">Any Rating</option>
+                            <option value="5">5 Stars</option>
+                            <option value="4">4+ Stars</option>
+                            <option value="3">3+ Stars</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="destination-search">Search</label>
+                        <input type="text" id="destination-search" placeholder="Search by name or keyword">
+                    </div>
+                </div>
+                <div class="filter-buttons">
+                    <button type="button" class="btn-filter btn-reset" id="reset-filters">Reset Filters</button>
+                    <button type="submit" class="btn-filter btn-apply" id="apply-filters">Apply Filters</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="page-navigation">
+            <a href="destinations.html" class="active">Destinations</a>
+            <a href="booking.html">Book Now</a>
+        </div>
+
+        <div class="destinations-grid" id="destinations-container">
+            <!-- Destinations will be loaded dynamically from the API -->
+            <!-- Sample destination card structure -->
+            <div class="destination-card">
+                <div class="destination-image">
+                    <img src="images/destinations/destination1.jpg" alt="Paris, France">
+                    <div class="destination-category">City</div>
+                </div>
+                <div class="destination-content">
+                    <div class="destination-header">
+                        <div class="destination-title">
+                            <h3>Paris, France</h3>
+                            <div class="destination-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Europe</span>
+                            </div>
+                        </div>
+                        <div class="destination-price">From $1,099</div>
+                    </div>
+                    <p class="destination-description">Experience the city of love with its iconic landmarks, world-class cuisine, and artistic heritage. Visit the Eiffel Tower, Louvre Museum, and enjoy romantic walks along the Seine River.</p>
+                    <div class="destination-features">
+                        <div class="destination-feature">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>5-7 days</span>
+                        </div>
+                        <div class="destination-feature">
+                            <i class="fas fa-utensils"></i>
+                            <span>Fine Dining</span>
+                        </div>
+                        <div class="destination-feature">
+                            <i class="fas fa-landmark"></i>
+                            <span>Cultural</span>
+                        </div>
+                    </div>
+                    <div class="destination-footer">
+                        <div class="destination-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>4.7</span>
+                        </div>
+                        <a href="booking.html?destination=paris" class="btn-view-details">View Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="destination-card">
+                <div class="destination-image">
+                    <img src="images/destinations/destination2.jpg" alt="Bali, Indonesia">
+                    <div class="destination-category">Beach</div>
+                </div>
+                <div class="destination-content">
+                    <div class="destination-header">
+                        <div class="destination-title">
+                            <h3>Bali, Indonesia</h3>
+                            <div class="destination-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Asia</span>
+                            </div>
+                        </div>
+                        <div class="destination-price">From $899</div>
+                    </div>
+                    <p class="destination-description">Experience the perfect blend of beautiful beaches, vibrant culture, and spiritual retreats. Explore ancient temples, lush rice terraces, and enjoy world-class surfing and diving.</p>
+                    <div class="destination-features">
+                        <div class="destination-feature">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>7-10 days</span>
+                        </div>
+                        <div class="destination-feature">
+                            <i class="fas fa-umbrella-beach"></i>
+                            <span>Beach</span>
+                        </div>
+                        <div class="destination-feature">
+                            <i class="fas fa-spa"></i>
+                            <span>Wellness</span>
+                        </div>
+                    </div>
+                    <div class="destination-footer">
+                        <div class="destination-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>4.8</span>
+                        </div>
+                        <a href="booking.html?destination=bali" class="btn-view-details">View Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="destination-card">
+                <div class="destination-image">
+                    <img src="images/destinations/destination3.jpg" alt="Santorini, Greece">
+                    <div class="destination-category">Island</div>
+                </div>
+                <div class="destination-content">
+                    <div class="destination-header">
+                        <div class="destination-title">
+                            <h3>Santorini, Greece</h3>
+                            <div class="destination-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Europe</span>
+                            </div>
+                        </div>
+                        <div class="destination-price">From $1,299</div>
+                    </div>
+                    <p class="destination-description">Enjoy breathtaking sunsets, white-washed buildings, and crystal-clear waters on this magical island. Perfect for romantic getaways and photography enthusiasts.</p>
+                    <div class="destination-features">
+                        <div class="destination-feature">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>5-7 days</span>
+                        </div>
+                        <div class="destination-feature">
+                            <i class="fas fa-glass-cheers"></i>
+                            <span>Romance</span>
+                        </div>
+                        <div class="destination-feature">
+                            <i class="fas fa-camera"></i>
+                            <span>Scenic Views</span>
+                        </div>
+                    </div>
+                    <div class="destination-footer">
+                        <div class="destination-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <a href="booking.html?destination=santorini" class="btn-view-details">View Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="destination-card">
+                <div class="destination-image">
+                    <img src="images/destinations/destination4.jpg" alt="Rome, Italy">
+                    <div class="destination-category">Historical</div>
+                </div>
+                <div class="destination-content">
+                    <div class="destination-header">
+                        <div class="destination-title">
+                            <h3>Rome, Italy</h3>
+                            <div class="destination-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Europe</span>
+                            </div>
+                        </div>
+                        <div class="destination-price">From $999</div>
+                    </div>
+                    <p class="destination-description">Step back in time and explore the ancient ruins, magnificent architecture, and world-renowned cuisine of the Eternal City. Visit the Colosseum, Vatican City, and throw a coin in the Trevi Fountain.</p>
+                    <div class="destination-features">
+                        <div class="destination-feature">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>4-6 days</span>
+                        </div>
+                        <div class="destination-feature">
+                            <i class="fas fa-landmark"></i>
+                            <span>Historical</span>
+                        </div>
+                        <div class="destination-feature">
+                            <i class="fas fa-utensils"></i>
+                            <span>Cuisine</span>
+                        </div>
+                    </div>
+                    <div class="destination-footer">
+                        <div class="destination-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>4.6</span>
+                        </div>
+                        <a href="booking.html?destination=rome" class="btn-view-details">View Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="destination-card">
+                <div class="destination-image">
+                    <img src="images/destinations/destination5.jpg" alt="Venice, Italy">
+                    <div class="destination-category">City</div>
+                </div>
+                <div class="destination-content">
+                    <div class="destination-header">
+                        <div class="destination-title">
+                            <h3>Venice, Italy</h3>
+                            <div class="destination-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Europe</span>
+                            </div>
+                        </div>
+                        <div class="destination-price">From $1,199</div>
+                    </div>
+                    <p class="destination-description">Experience the unique charm of the floating city with its winding canals, historic architecture, and romantic gondola rides. Visit St. Mark's Square, Doge's Palace, and the Rialto Bridge.</p>
+                    <div class="destination-features">
+                        <div class="destination-feature">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>3-5 days</span>
+                        </div>
+                        <div class="destination-feature">
+                            <i class="fas fa-water"></i>
+                            <span>Canals</span>
+                        </div>
+                        <div class="destination-feature">
+                            <i class="fas fa-glass-cheers"></i>
+                            <span>Romance</span>
+                        </div>
+                    </div>
+                    <div class="destination-footer">
+                        <div class="destination-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>4.7</span>
+                        </div>
+                        <a href="booking.html?destination=venice" class="btn-view-details">View Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="destination-card">
+                <div class="destination-image">
+                    <img src="images/destinations/destination6.jpg" alt="Swiss Alps, Switzerland">
+                    <div class="destination-category">Mountain</div>
+                </div>
+                <div class="destination-content">
+                    <div class="destination-header">
+                        <div class="destination-title">
+                            <h3>Swiss Alps, Switzerland</h3>
+                            <div class="destination-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Europe</span>
+                            </div>
+                        </div>
+                        <div class="destination-price">From $1,499</div>
+                    </div>
+                    <p class="destination-description">Discover the breathtaking beauty of the Swiss Alps with their majestic peaks, crystal-clear lakes, and charming alpine villages. Perfect for hiking, skiing, and outdoor adventures.</p>
+                    <div class="destination-features">
+                        <div class="destination-feature">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>7-10 days</span>
+                        </div>
+                        <div class="destination-feature">
+                            <i class="fas fa-mountain"></i>
+                            <span>Mountain</span>
+                        </div>
+                        <div class="destination-feature">
+                            <i class="fas fa-skiing"></i>
+                            <span>Adventure</span>
+                        </div>
+                    </div>
+                    <div class="destination-footer">
+                        <div class="destination-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <a href="booking.html?destination=swiss-alps" class="btn-view-details">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pagination">
+            <button class="pagination-prev" disabled><i class="fas fa-chevron-left"></i></button>
+            <div class="pagination-numbers">
+                <button class="pagination-number active">1</button>
+                <button class="pagination-number">2</button>
+                <button class="pagination-number">3</button>
+            </div>
+            <button class="pagination-next"><i class="fas fa-chevron-right"></i></button>
+        </div>
+
+        <div class="map-section">
+            <div class="section-header">
+                <h2>Explore Destinations on the Map</h2>
+                <p>Find your perfect destination and discover nearby attractions</p>
+            </div>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d83998.76457410133!2d2.2769947739270855!3d48.85894658138276!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e1f06e2b70f%3A0x40b82c3688c9460!2sParis%2C%20France!5e0!3m2!1sen!2sus!4v1622131973462!5m2!1sen!2sus" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+
+        <section class="featured-destinations">
+            <div class="section-header">
+                <h2>Featured Destinations</h2>
+                <p>Our handpicked selection of the most popular destinations</p>
+            </div>
+            
+            <div class="featured-slider">
+                <div class="featured-controls">
+                    <button class="featured-prev"><i class="fas fa-chevron-left"></i></button>
+                    <button class="featured-next"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                
+                <div class="destinations-grid">
+                    <div class="destination-card">
+                        <div class="destination-image">
+                            <img src="images/tokyo.jpg" alt="Tokyo, Japan">
+                            <div class="destination-category">City</div>
+                        </div>
+                        <div class="destination-content">
+                            <div class="destination-header">
+                                <div class="destination-title">
+                                    <h3>Tokyo, Japan</h3>
+                                    <div class="destination-location">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Asia</span>
+                                    </div>
+                                </div>
+                                <div class="destination-price">From $1,599</div>
+                            </div>
+                            <p class="destination-description">Experience the perfect blend of traditional culture and futuristic technology in Japan's vibrant capital. Visit ancient temples, explore bustling markets, and enjoy world-class cuisine.</p>
+                            <div class="destination-features">
+                                <div class="destination-feature">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span>7-10 days</span>
+                                </div>
+                                <div class="destination-feature">
+                                    <i class="fas fa-utensils"></i>
+                                    <span>Cuisine</span>
+                                </div>
+                                <div class="destination-feature">
+                                    <i class="fas fa-city"></i>
+                                    <span>Urban</span>
+                                </div>
+                            </div>
+                            <div class="destination-footer">
+                                <div class="destination-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <span>4.8</span>
+                                </div>
+                                <a href="booking.html?destination=tokyo" class="btn-view-details">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="destination-card">
+                        <div class="destination-image">
+                            <img src="images/newyork.jpg" alt="New York, USA">
+                            <div class="destination-category">City</div>
+                        </div>
+                        <div class="destination-content">
+                            <div class="destination-header">
+                                <div class="destination-title">
+                                    <h3>New York, USA</h3>
+                                    <div class="destination-location">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>North America</span>
+                                    </div>
+                                </div>
+                                <div class="destination-price">From $1,299</div>
+                            </div>
+                            <p class="destination-description">Discover the city that never sleeps with its iconic skyline, world-class museums, Broadway shows, and diverse neighborhoods. Experience the energy of Times Square and the tranquility of Central Park.</p>
+                            <div class="destination-features">
+                                <div class="destination-feature">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span>5-7 days</span>
+                                </div>
+                                <div class="destination-feature">
+                                    <i class="fas fa-theater-masks"></i>
+                                    <span>Entertainment</span>
+                                </div>
+                                <div class="destination-feature">
+                                    <i class="fas fa-shopping-bag"></i>
+                                    <span>Shopping</span>
+                                </div>
+                            </div>
+                            <div class="destination-footer">
+                                <div class="destination-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <span>4.7</span>
+                                </div>
+                                <a href="booking.html?destination=new-york" class="btn-view-details">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="destination-card">
+                        <div class="destination-image">
+                            <img src="images/rome.jpg" alt="Rome, Italy">
+                            <div class="destination-category">Historical</div>
+                        </div>
+                        <div class="destination-content">
+                            <div class="destination-header">
+                                <div class="destination-title">
+                                    <h3>Rome, Italy</h3>
+                                    <div class="destination-location">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Europe</span>
+                                    </div>
+                                </div>
+                                <div class="destination-price">From $999</div>
+                            </div>
+                            <p class="destination-description">Step back in time and explore the ancient ruins, magnificent architecture, and world-renowned cuisine of the Eternal City. Visit the Colosseum, Vatican City, and throw a coin in the Trevi Fountain.</p>
+                            <div class="destination-features">
+                                <div class="destination-feature">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span>4-6 days</span>
+                                </div>
+                                <div class="destination-feature">
+                                    <i class="fas fa-landmark"></i>
+                                    <span>Historical</span>
+                                </div>
+                                <div class="destination-feature">
+                                    <i class="fas fa-utensils"></i>
+                                    <span>Cuisine</span>
+                                </div>
+                            </div>
+                            <div class="destination-footer">
+                                <div class="destination-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <span>4.6</span>
+                                </div>
+                                <a href="booking.html?destination=rome" class="btn-view-details">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Start Your Adventure?</h2>
+                <p>Join thousands of satisfied travelers who have discovered their dream destinations with TravelWorld. Our expert team is ready to help you plan the perfect trip.</p>
+                <div class="cta-buttons">
+                    <a href="booking.html" class="btn-cta-primary">Book Your Trip</a>
+                    <a href="#" class="btn-cta-secondary">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <h2>Travel<span>World</span></h2>
+                    </div>
+                    <p>Discover the world with us. We provide unforgettable travel experiences with personalized service and exceptional value.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="destinations.html">Destinations</a></li>
+                        <li><a href="booking.html">Book Now</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Destinations</h3>
+                    <ul>
+                        <li><a href="#">Europe</a></li>
+                        <li><a href="#">Asia</a></li>
+                        <li><a href="#">North America</a></li>
+                        <li><a href="#">South America</a></li>
+                        <li><a href="#">Africa</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Travel Street, City, Country</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@travelworld.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 TravelWorld. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script src="js/destinations.js"></script>
+</body>
+</html>

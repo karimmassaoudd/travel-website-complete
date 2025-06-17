@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth Test - TravelWorld</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .test-container {
+            max-width: 800px;
+            margin: 80px auto;
+            padding: 40px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .test-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .test-header h1 {
+            font-size: 2rem;
+            color: var(--dark-color);
+            margin-bottom: 10px;
+        }
+        
+        .test-header p {
+            color: #777;
+        }
+        
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+        
+        .test-section h2 {
+            font-size: 1.5rem;
+            color: var(--dark-color);
+            margin-bottom: 15px;
+        }
+        
+        .test-section p {
+            margin-bottom: 15px;
+        }
+        
+        .test-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .test-button:hover {
+            background-color: #2980b9;
+        }
+        
+        .test-results {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0f8ff;
+            border-radius: 4px;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .test-results pre {
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Travel<span>World</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="destinations.html">Destinations</a></li>
+                    <li><a href="booking.html">Book Now</a></li>
+                </ul>
+            </nav>
+            <div class="header-right">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search destinations...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <div class="user-actions">
+                    <!-- Will be populated by auth.js -->
+                </div>
+            </div>
+            <div class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="test-container">
+            <div class="test-header">
+                <h1>Authentication Test Page</h1>
+                <p>This page is for testing the authentication functionality of the TravelWorld website.</p>
+            </div>
+            
+            <div class="test-section">
+                <h2>Test Authentication Flow</h2>
+                <p>Click the button below to test the registration, login, and user data retrieval functionality.</p>
+                <button id="run-auth-tests" class="test-button">Run Authentication Tests</button>
+                
+                <div class="test-results">
+                    <h3>Test Results</h3>
+                    <p>Open the browser console (F12) to see detailed test results.</p>
+                    <pre id="test-output">No tests run yet.</pre>
+                </div>
+            </div>
+            
+            <div class="test-section">
+                <h2>Manual Testing</h2>
+                <p>You can also manually test the authentication by using the following links:</p>
+                <ul>
+                    <li><a href="signup.html">Sign Up Page</a></li>
+                    <li><a href="login.html">Login Page</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <h2>Travel<span>World</span></h2>
+                    </div>
+                    <p>Discover the world with us. We provide unforgettable travel experiences with personalized service and exceptional value.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="destinations.html">Destinations</a></li>
+                        <li><a href="booking.html">Book Now</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Destinations</h3>
+                    <ul>
+                        <li><a href="#">Europe</a></li>
+                        <li><a href="#">Asia</a></li>
+                        <li><a href="#">North America</a></li>
+                        <li><a href="#">South America</a></li>
+                        <li><a href="#">Africa</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Travel Street, City, Country</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@travelworld.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 TravelWorld. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script src="js/auth-test.js"></script>
+    <script>
+        // Capture console output for display in the test results
+        (function() {
+            const testOutput = document.getElementById('test-output');
+            const originalConsoleLog = console.log;
+            const originalConsoleError = console.error;
+            
+            console.log = function() {
+                const args = Array.from(arguments);
+                testOutput.textContent += args.join(' ') + '\n';
+                originalConsoleLog.apply(console, args);
+            };
+            
+            console.error = function() {
+                const args = Array.from(arguments);
+                testOutput.textContent += 'ERROR: ' + args.join(' ') + '\n';
+                originalConsoleError.apply(console, args);
+            };
+        })();
+    </script>
+</body>
+</html>

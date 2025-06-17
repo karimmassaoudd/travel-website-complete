@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Now - TravelWorld</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/enhanced-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Book Now Page Specific Styles */
+        .booking-hero {
+            height: 500px;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/cruise_ship.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .booking-hero-content {
+            max-width: 800px;
+            padding: 40px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 8px;
+        }
+        
+        .booking-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .booking-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        
+        .booking-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-top: -50px;
+            position: relative;
+            z-index: 10;
+            overflow: hidden;
+        }
+        
+        .booking-steps {
+            display: flex;
+            background-color: #f9f9f9;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .booking-step {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            font-weight: 600;
+            color: #777;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .booking-step.active {
+            color: var(--primary-color);
+            background-color: white;
+        }
+        
+        .booking-step.completed {
+            color: #4CAF50;
+        }
+        
+        .booking-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 2px;
+            background-color: #ddd;
+        }
+        
+        .booking-step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 50%;
+            background-color: #ddd;
+            color: white;
+            margin-right: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .booking-step.active .booking-step-number {
+            background-color: var(--primary-color);
+        }
+        
+        .booking-step.completed .booking-step-number {
+            background-color: #4CAF50;
+        }
+        
+        .booking-content {
+            padding: 40px;
+        }
+        
+        .booking-section {
+            display: none;
+        }
+        
+        .booking-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .booking-section-title {
+            margin-bottom: 30px;
+            color: var(--dark-color);
+        }
+        
+        .booking-section-title h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .booking-section-title p {
+            color: #777;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .destination-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .destination-option {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .destination-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .destination-option.selected {
+            border-color: var(--primary-color);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.2);
+        }
+        
+        .destination-option-image {
+            height: 180px;
+            overflow: hidden;
+        }
+        
+        .destination-option-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .destination-option:hover .destination-option-image img {
+            transform: scale(1.1);
+        }
+        
+        .destination-option-content {
+            padding: 15px;
+        }
+        
+        .destination-option-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--dark-color);
+        }
+        
+        .destination-option-location {
+            color: #777;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .destination-option-price {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .package-options {
+            margin-bottom: 30px;
+        }
+        
+        .package-option {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .package-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .package-option.selected {
+            border-color: var(--primary-color);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.2);
+        }
+        
+        .package-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .package-title {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: var(--dark-color);
+        }
+        
+        .package-price {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        .package-features {
+            margin-top: 15px;
+        }
+        
+        .package-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .package-feature i {
+            color: #4CAF50;
+            margin-right: 10px;
+        }
+        
+        .payment-methods {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .payment-method {
+            flex: 1;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .payment-method:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .payment-method.selected {
+            border-color: var(--primary-color);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.2);
+        }
+        
+        .payment-method-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+        
+        .payment-method-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--dark-color);
+        }
+        
+        .payment-method-description {
+            font-size: 0.9rem;
+            color: #777;
+        }
+        
+        .booking-summary {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+        
+        .summary-title {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+        
+        .summary-label {
+            color: #777;
+        }
+        
+        .summary-value {
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #ddd;
+        }
+        
+        .summary-total-label {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--dark-color);
+        }
+        
+        .summary-total-value {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+        
+        .booking-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .btn-booking {
+            padding: 12px 25px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-prev {
+            background-color: transparent;
+            color: var(--dark-color);
+            border: 1px solid #ddd;
+        }
+        
+        .btn-prev:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .btn-next {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+        }
+        
+        .btn-next:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .booking-confirmation {
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        .confirmation-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 30px;
+            background-color: #4CAF50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+        
+        .confirmation-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+        
+        .confirmation-message {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .booking-details {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 25px;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            text-align: left;
+        }
+        
+        .booking-detail {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .booking-detail:last-child {
+            border-bottom: none;
+        }
+        
+        .booking-detail-label {
+            color: #777;
+        }
+        
+        .booking-detail-value {
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        
+        /* Navigation style matching the uploaded image */
+        .page-navigation {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+        }
+        
+        .page-navigation a {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            text-decoration: none;
+            color: #333;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .page-navigation a:hover {
+            color: var(--primary-color);
+        }
+        
+        .page-navigation a.active {
+            color: var(--primary-color);
+        }
+        
+        .page-navigation a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .destination-options {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .payment-methods {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .booking-hero {
+                height: 400px;
+            }
+            
+            .booking-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .booking-content {
+                padding: 20px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .destination-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .booking-steps {
+                flex-direction: column;
+            }
+            
+            .booking-step:not(:last-child)::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Travel<span>World</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="destinations.html">Destinations</a></li>
+                    <li><a href="booking.html" class="active">Book Now</a></li>
+                </ul>
+            </nav>
+            <div class="header-right">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search destinations...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <div class="user-actions">
+                    <!-- Will be populated by auth.js -->
+                </div>
+            </div>
+            <div class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <section class="booking-hero">
+        <div class="booking-hero-content">
+            <h1>Book Your Dream Vacation</h1>
+            <p>Plan your perfect trip with our easy booking process and personalized travel packages</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="page-navigation">
+            <a href="destinations.html">Destinations</a>
+            <a href="booking.html" class="active">Book Now</a>
+        </div>
+        
+        <div class="booking-container">
+            <div class="booking-steps">
+                <div class="booking-step active" data-step="1">
+                    <span class="booking-step-number">1</span>
+                    Choose Destination
+                </div>
+                <div class="booking-step" data-step="2">
+                    <span class="booking-step-number">2</span>
+                    Travel Details
+                </div>
+                <div class="booking-step" data-step="3">
+                    <span class="booking-step-number">3</span>
+                    Personal Info
+                </div>
+                <div class="booking-step" data-step="4">
+                    <span class="booking-step-number">4</span>
+                    Payment
+                </div>
+                <div class="booking-step" data-step="5">
+                    <span class="booking-step-number">5</span>
+                    Confirmation
+                </div>
+            </div>
+            
+            <div class="booking-content">
+                <!-- Step 1: Choose Destination -->
+                <div class="booking-section active" id="step-1">
+                    <div class="booking-section-title">
+                        <h2>Choose Your Destination</h2>
+                        <p>Select from our popular destinations or search for a specific location</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="destination-search">Search Destination</label>
+                        <input type="text" id="destination-search" placeholder="Enter city, country, or region">
+                    </div>
+                    
+                    <div class="destination-options">
+                        <div class="destination-option" data-destination="paris">
+                            <div class="destination-option-image">
+                                <img src="images/paris.jpg" alt="Paris, France">
+                            </div>
+                            <div class="destination-option-content">
+                                <div class="destination-option-title">Paris, France</div>
+                                <div class="destination-option-location">Europe</div>
+                                <div class="destination-option-price">From $1,099</div>
+                            </div>
+                        </div>
+                        
+                        <div class="destination-option" data-destination="bali">
+                            <div class="destination-option-image">
+                                <img src="images/bali.jpg" alt="Bali, Indonesia">
+                            </div>
+                            <div class="destination-option-content">
+                                <div class="destination-option-title">Bali, Indonesia</div>
+                                <div class="destination-option-location">Asia</div>
+                                <div class="destination-option-price">From $899</div>
+                            </div>
+                        </div>
+                        
+                        <div class="destination-option" data-destination="santorini">
+                            <div class="destination-option-image">
+                                <img src="images/santorini.jpg" alt="Santorini, Greece">
+                            </div>
+                            <div class="destination-option-content">
+                                <div class="destination-option-title">Santorini, Greece</div>
+                                <div class="destination-option-location">Europe</div>
+                                <div class="destination-option-price">From $1,299</div>
+                            </div>
+                        </div>
+                        
+                        <div class="destination-option" data-destination="tokyo">
+                            <div class="destination-option-image">
+                                <img src="images/tokyo.jpg" alt="Tokyo, Japan">
+                            </div>
+                            <div class="destination-option-content">
+                                <div class="destination-option-title">Tokyo, Japan</div>
+                                <div class="destination-option-location">Asia</div>
+                                <div class="destination-option-price">From $1,599</div>
+                            </div>
+                        </div>
+                        
+                        <div class="destination-option" data-destination="newyork">
+                            <div class="destination-option-image">
+                                <img src="images/newyork.jpg" alt="New York, USA">
+                            </div>
+                            <div class="destination-option-content">
+                                <div class="destination-option-title">New York, USA</div>
+                                <div class="destination-option-location">North America</div>
+                                <div class="destination-option-price">From $1,299</div>
+                            </div>
+                        </div>
+                        
+                        <div class="destination-option" data-destination="rome">
+                            <div class="destination-option-image">
+                                <img src="images/rome.jpg" alt="Rome, Italy">
+                            </div>
+                            <div class="destination-option-content">
+                                <div class="destination-option-title">Rome, Italy</div>
+                                <div class="destination-option-location">Europe</div>
+                                <div class="destination-option-price">From $999</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="booking-actions">
+                        <button class="btn-booking btn-prev" disabled>Previous</button>
+                        <button class="btn-booking btn-next" data-next="2">Next Step</button>
+                    </div>
+                </div>
+                
+                <!-- Step 2: Travel Details -->
+                <div class="booking-section" id="step-2">
+                    <div class="booking-section-title">
+                        <h2>Travel Details</h2>
+                        <p>Choose your travel dates, package, and preferences</p>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="travel-date">Departure Date</label>
+                            <input type="date" id="travel-date" min="2025-06-02">
+                        </div>
+                        <div class="form-group">
+                            <label for="return-date">Return Date</label>
+                            <input type="date" id="return-date" min="2025-06-03">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="adults">Adults</label>
+                            <select id="adults">
+                                <option value="1">1</option>
+                                <option value="2" selected>2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="children">Children</label>
+                            <select id="children">
+                                <option value="0" selected>0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="package-options">
+                        <h3>Select Package</h3>
+                        
+                        <div class="package-option" data-package="standard">
+                            <div class="package-header">
+                                <div class="package-title">Standard Package</div>
+                                <div class="package-price">$899 per person</div>
+                            </div>
+                            <p>Our most popular package includes accommodation, daily breakfast, and guided city tour.</p>
+                            <div class="package-features">
+                                <div class="package-feature">
+                                    <i class="fas fa-check"></i>
+                                    <span>3-star hotel accommodation</span>
+                                </div>
+                                <div class="package-feature">
+                                    <i class="fas fa-check"></i>
+                                    <span>Daily breakfast</span>
+                                </div>
+                                <div class="package-feature">
+                                    <i class="fas fa-check"></i>
+                                    <span>Half-day city tour</span>
+                                </div>
+                                <div class="package-feature">
+                                    <i class="fas fa-check"></i>
+                                    <span>Airport transfers</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="package-option" data-package="premium">
+                            <div class="package-header">
+                                <div class="package-title">Premium Package</div>
+                                <div class="package-price">$1,299 per person</div>
+                            </div>
+                            <p>Upgrade your experience with premium accommodations, all meals, and additional activities.</p>
+                            <div class="package-features">
+                                <div class="package-feature">
+                                    <i class="fas fa-check"></i>
+                                    <span>4-star hotel accommodation</span>
+                                </div>
+                                <div class="package-feature">
+                                    <i class="fas fa-check"></i>
+                                    <span>All meals included</span>
+                                </div>
+                                <div class="package-feature">
+                                    <i class="fas fa-check"></i>
+                                    <span>Full-day city tour</span>
+                                </div>
+                                <div class="package-feature">
+                                    <i class="fas fa-check"></i>
+                                    <span>Airport transfers</span>
+                                </div>
+                                <div class="package-feature">
+                                    <i class="fas fa-check"></i>
+                                    <span>Cultural experience activities</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="package-option" data-package="luxury">
+                            <div class="package-header">
+                                <div class="package-title">Luxury Package</div>
+                                <div class="package-price">$1,899 per person</div>
+                            </div>
+                            <p>Experience the ultimate in luxury travel with 5-star accommodations, private tours, and exclusive experiences.</p>
+                            <div class="package-features">
+                                <div class="package-feature">
+                                    <i class="fas fa-check"></i>
+                                    <span>5-star luxury hotel accommodation</span>
+                                </div>
+                                <div class="package-feature">
+                                    <i class="fas fa-check"></i>
+                                    <span>All meals at premium restaurants</span>
+                                </div>
+                                <div class="package-feature">
+                                    <i class="fas fa-check"></i>
+                                    <span>Private guided tours</span>
+                                </div>
+                                <div class="package-feature">
+                                    <i class="fas fa-check"></i>
+                                    <span>Private airport transfers</span>
+                                </div>
+                                <div class="package-feature">
+                                    <i class="fas fa-check"></i>
+                                    <span>Exclusive cultural experiences</span>
+                                </div>
+                                <div class="package-feature">
+                                    <i class="fas fa-check"></i>
+                                    <span>Spa treatment included</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="booking-actions">
+                        <button class="btn-booking btn-prev" data-prev="1">Previous</button>
+                        <button class="btn-booking btn-next" data-next="3">Next Step</button>
+                    </div>
+                </div>
+                
+                <!-- Step 3: Personal Information -->
+                <div class="booking-section" id="step-3">
+                    <div class="booking-section-title">
+                        <h2>Personal Information</h2>
+                        <p>Please provide your contact and traveler details</p>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="first-name">First Name</label>
+                            <input type="text" id="first-name" placeholder="Enter your first name">
+                        </div>
+                        <div class="form-group">
+                            <label for="last-name">Last Name</label>
+                            <input type="text" id="last-name" placeholder="Enter your last name">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" placeholder="Enter your email address">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" placeholder="Enter your phone number">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" id="address" placeholder="Enter your street address">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" id="city" placeholder="Enter your city">
+                        </div>
+                        <div class="form-group">
+                            <label for="country">Country</label>
+                            <select id="country">
+                                <option value="">Select your country</option>
+                                <option value="us">United States</option>
+                                <option value="ca">Canada</option>
+                                <option value="uk">United Kingdom</option>
+                                <option value="au">Australia</option>
+                                <option value="fr">France</option>
+                                <option value="de">Germany</option>
+                                <option value="jp">Japan</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="special-requests">Special Requests</label>
+                        <textarea id="special-requests" rows="4" placeholder="Enter any special requests or requirements"></textarea>
+                    </div>
+                    
+                    <div class="booking-actions">
+                        <button class="btn-booking btn-prev" data-prev="2">Previous</button>
+                        <button class="btn-booking btn-next" data-next="4">Next Step</button>
+                    </div>
+                </div>
+                
+                <!-- Step 4: Payment -->
+                <div class="booking-section" id="step-4">
+                    <div class="booking-section-title">
+                        <h2>Payment</h2>
+                        <p>Choose your payment method and review your booking details</p>
+                    </div>
+                    
+                    <div class="payment-methods">
+                        <div class="payment-method" data-payment="credit-card">
+                            <div class="payment-method-icon">
+                                <i class="fas fa-credit-card"></i>
+                            </div>
+                            <div class="payment-method-title">Credit Card</div>
+                            <div class="payment-method-description">Pay securely with your credit card</div>
+                        </div>
+                        
+                        <div class="payment-method" data-payment="paypal">
+                            <div class="payment-method-icon">
+                                <i class="fab fa-paypal"></i>
+                            </div>
+                            <div class="payment-method-title">PayPal</div>
+                            <div class="payment-method-description">Pay with your PayPal account</div>
+                        </div>
+                        
+                        <div class="payment-method" data-payment="bank-transfer">
+                            <div class="payment-method-icon">
+                                <i class="fas fa-university"></i>
+                            </div>
+                            <div class="payment-method-title">Bank Transfer</div>
+                            <div class="payment-method-description">Pay via bank transfer</div>
+                        </div>
+                    </div>
+                    
+                    <div id="credit-card-form" style="display: none;">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="card-name">Name on Card</label>
+                                <input type="text" id="card-name" placeholder="Enter name as it appears on card">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="card-number">Card Number</label>
+                                <input type="text" id="card-number" placeholder="Enter your card number">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="expiry-date">Expiry Date</label>
+                                <input type="text" id="expiry-date" placeholder="MM/YY">
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv">CVV</label>
+                                <input type="text" id="cvv" placeholder="CVV">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="booking-summary">
+                        <div class="summary-title">Booking Summary</div>
+                        
+                        <div class="summary-item">
+                            <div class="summary-label">Destination</div>
+                            <div class="summary-value" id="summary-destination">Paris, France</div>
+                        </div>
+                        
+                        <div class="summary-item">
+                            <div class="summary-label">Travel Dates</div>
+                            <div class="summary-value" id="summary-dates">Jun 15, 2025 - Jun 22, 2025</div>
+                        </div>
+                        
+                        <div class="summary-item">
+                            <div class="summary-label">Travelers</div>
+                            <div class="summary-value" id="summary-travelers">2 Adults, 0 Children</div>
+                        </div>
+                        
+                        <div class="summary-item">
+                            <div class="summary-label">Package</div>
+                            <div class="summary-value" id="summary-package">Standard Package</div>
+                        </div>
+                        
+                        <div class="summary-item">
+                            <div class="summary-label">Price per Person</div>
+                            <div class="summary-value" id="summary-price-per-person">$899</div>
+                        </div>
+                        
+                        <div class="summary-total">
+                            <div class="summary-total-label">Total Price</div>
+                            <div class="summary-total-value" id="summary-total-price">$1,798</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="terms-checkbox">
+                            I agree to the <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a>
+                        </label>
+                    </div>
+                    
+                    <div class="booking-actions">
+                        <button class="btn-booking btn-prev" data-prev="3">Previous</button>
+                        <button class="btn-booking btn-next" data-next="5">Complete Booking</button>
+                    </div>
+                </div>
+                
+                <!-- Step 5: Confirmation -->
+                <div class="booking-section" id="step-5">
+                    <div class="booking-confirmation">
+                        <div class="confirmation-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <h2 class="confirmation-title">Booking Confirmed!</h2>
+                        <p class="confirmation-message">Thank you for booking with TravelWorld. Your reservation has been confirmed and a confirmation email has been sent to your email address. We look forward to providing you with an unforgettable travel experience.</p>
+                        
+                        <div class="booking-details">
+                            <div class="summary-title">Booking Details</div>
+                            
+                            <div class="booking-detail">
+                                <div class="booking-detail-label">Booking Reference</div>
+                                <div class="booking-detail-value" id="booking-reference">TW-2025-06789</div>
+                            </div>
+                            
+                            <div class="booking-detail">
+                                <div class="booking-detail-label">Destination</div>
+                                <div class="booking-detail-value" id="booking-destination">Paris, France</div>
+                            </div>
+                            
+                            <div class="booking-detail">
+                                <div class="booking-detail-label">Travel Dates</div>
+                                <div class="booking-detail-value" id="booking-dates">Jun 15, 2025 - Jun 22, 2025</div>
+                            </div>
+                            
+                            <div class="booking-detail">
+                                <div class="booking-detail-label">Package</div>
+                                <div class="booking-detail-value" id="booking-package">Standard Package</div>
+                            </div>
+                            
+                            <div class="booking-detail">
+                                <div class="booking-detail-label">Total Price</div>
+                                <div class="booking-detail-value" id="booking-total">$1,798</div>
+                            </div>
+                        </div>
+                        
+                        <div class="booking-actions">
+                            <a href="index.html" class="btn-booking btn-next">Return to Home</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Need Help Planning Your Trip?</h2>
+                <p>Our travel experts are ready to assist you in creating the perfect itinerary tailored to your preferences and budget.</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn-cta-primary">Contact an Expert</a>
+                    <a href="#" class="btn-cta-secondary">View Travel Guides</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <h2>Travel<span>World</span></h2>
+                    </div>
+                    <p>Discover the world with us. We provide unforgettable travel experiences with personalized service and exceptional value.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="destinations.html">Destinations</a></li>
+                        <li><a href="booking.html">Book Now</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Destinations</h3>
+                    <ul>
+                        <li><a href="#">Europe</a></li>
+                        <li><a href="#">Asia</a></li>
+                        <li><a href="#">North America</a></li>
+                        <li><a href="#">South America</a></li>
+                        <li><a href="#">Africa</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Travel Street, City, Country</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@travelworld.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 TravelWorld. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script src="js/booking.js"></script>
+</body>
+</html>
